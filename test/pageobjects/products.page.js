@@ -2,19 +2,15 @@ class ProductsPage {
   get inputFirstName() {
     return $('#first-name');
   }
-
+  get title() {
+    return $('.title');
+  }
   get inputLastName() {
     return $('#last-name');
   }
 
   get inputZipCode() {
     return $('#postal-code');
-  }
-
-  async fillCheckoutForm(firstName, lastName, zipCode) {
-    await this.inputFirstName.setValue(firstName);
-    await this.inputLastName.setValue(lastName);
-    await this.inputZipCode.setValue(zipCode);
   }
 
   get continueButton() {
@@ -77,8 +73,25 @@ class ProductsPage {
     return $$('.inventory_item_price');
   }
 
+  async clickAllSocialButtons() {
+    await this.linkedinButton.click();
+    await this.twitterButton.click();
+    await this.facebookButton.click();
+  }
+
+  async fillCheckoutForm(firstName, lastName, zipCode) {
+    await this.inputFirstName.setValue(firstName);
+    await this.inputLastName.setValue(lastName);
+    await this.inputZipCode.setValue(zipCode);
+  }
+
   async selectSortOption(option) {
     return this.sortSelect.selectByVisibleText(option);
+  }
+
+  async logout() {
+    await this.burgerMenu.click();
+    await this.logoutButton.click();
   }
 
   async getProductNames() {

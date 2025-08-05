@@ -1,24 +1,28 @@
 class LoginPage {
-  get inputLogin() {
+  get usernameInput() {
     return $('[placeholder="Username"]');
   }
 
-  get inputPassword() {
+  get passwordInput() {
     return $('[placeholder="Password"]');
   }
 
-  get buttonSubmit() {
+  get loginButton() {
     return $('.submit-button');
   }
 
-  async login(login, password) {
-    await this.inputLogin.setValue(login);
-    await this.inputPassword.setValue(password);
-    await this.buttonSubmit.click();
+  get errorMessage() {
+    return $('[data-test="error"]');
   }
 
   async open() {
     await browser.url('https://www.saucedemo.com/');
+  }
+
+  async login(username, password) {
+    await this.usernameInput.setValue(username);
+    await this.passwordInput.setValue(password);
+    await this.loginButton.click();
   }
 }
 

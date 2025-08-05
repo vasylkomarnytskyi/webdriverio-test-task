@@ -1,32 +1,34 @@
-import LoginPage from '../pageobjects/login.page.js';
-import ProductPage from '../pageobjects/products.page.js';
+import loginPage from '../pageobjects/login.page.js';
+import productPage from '../pageobjects/products.page.js';
 
 describe('Login Page', () => {
   beforeEach(async () => {
-    await LoginPage.open();
+    await loginPage.open();
   });
 
   describe('Valid login', () => {
     it('should login with standard user', async () => {
-      await LoginPage.login('standard_user', 'secret_sauce');
+      await loginPage.login('standard_user', 'secret_sauce');
+      await expect(productPage.title).toBeDisplayed();
     });
   });
 
   describe('Invalid login', () => {
     it('should not login with wrong password', async () => {
-      await LoginPage.login('standard_user', 'random_value');
+      await loginPage.login('standard_user', 'random_value');
+      await expect(loginPage.errorMessage).toBeDisplayed();
     });
-    it('should login with valid credentials', async () => {
-      await LoginPage.login('standarD_user', 'secret_sauce');
+    it('should not login with invalid username', async () => {
+      await loginPage.login('standarD_user', 'secret_sauce');
+      await expect(loginPage.errorMessage).toBeDisplayed();
     });
   });
 
   describe('Logout', () => {
     it('should logout successfully', async () => {
-      await LoginPage.login('standard_user', 'secret_sauce');
-      await ProductPage.burgerMenu.click();
-      await ProductPage.logoutButton.click();
-      await browser.pause(2000);
+      await loginPage.login('standard_user', 'secret_sauce');
+      await productPage.logout();
+      await expect(loginPage.usernameInput).toBeDisplayed();
     });
   });
 });
