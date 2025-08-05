@@ -109,10 +109,20 @@ class ProductsPage {
     await this.backHomeButton.click();
   }
 
-  async clickAllSocialButtons() {
-    await this.linkedinButton.click();
-    await this.twitterButton.click();
-    await this.facebookButton.click();
+  async clickSocialButton(name) {
+    switch (name) {
+      case 'linkedin':
+        await this.linkedinButton.click();
+        break;
+      case 'twitter':
+        await this.twitterButton.click();
+        break;
+      case 'facebook':
+        await this.facebookButton.click();
+        break;
+      default:
+        throw new Error(`No social button named "${name}"`);
+    }
   }
 
   async fillCheckoutForm(firstName, lastName, zipCode) {
