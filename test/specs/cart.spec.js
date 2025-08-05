@@ -7,30 +7,36 @@ describe('Cart Page', () => {
   });
 
   it('should keep the cart items after user logs out and logs in again', async () => {
-    await productPage.addToCartButton.click();
-    await productPage.cartButton.click();
-    await productPage.burgerMenu.click();
-    await productPage.logoutButton.click();
+    await productPage.addToCart('backpack');
+    await productPage.openCart();
+    expect(await productPage.getCartItemsCount()).toBe(1);
+    await productPage.logout();
     await loginPage.login('standard_user', 'secret_sauce');
-    await productPage.cartButton.click();
-    await browser.pause(2000);
+    await productPage.openCart();
+    expect(await productPage.getCartItemsCount()).toBe(1);
   });
 
   it('should successfully complete the checkout process with valid product and user info', async () => {
-    await productPage.addToCartButton1.click();
-    await productPage.cartButton.click();
-    await productPage.checkoutButton.click();
+    await productPage.addToCart('bike light');
+    await productPage.openCart();
+    await productPage.checkout();
     await productPage.fillCheckoutForm('Ivan', 'Ivanenko', '12345');
-    await productPage.continueButton.click();
-    await productPage.finishButton.click();
-    await productPage.backHomeButton.click();
-    await browser.pause(2000);
+    await productPage.continueCheckout();
+    await productPage.finishCheckout();
+
+    const completeHeader = await $('.complete-header');
+    await completeHeader.waitForDisplayed();
+    expect(await completeHeader.getText()).toContain('Thank you for your order!');
+
+    await productPage.backHome();
+
+    await expect(productPage.title).toBeDisplayed();
   });
 
   it('should handle checkout attempt without any products in the cart', async () => {
-    await productPage.cartButton.click();
-    await productPage.checkoutButton.click();
+    await productPage.openCart();
+    await productPage.checkout();
     await productPage.errorMessage.waitForDisplayed();
-    await browser.pause(2000);
+    expect(await productPage.isErrorVisible()).toBe(true);
   });
 });

@@ -65,12 +65,48 @@ class ProductsPage {
     return $('.product_sort_container');
   }
 
+  get errorMessage() {
+    return $('[data-test="error"]');
+  }
+
+  get cartItems() {
+    return $$('.cart_item');
+  }
+
   get productNames() {
     return $$('.inventory_item_name');
   }
 
   get productPrices() {
     return $$('.inventory_item_price');
+  }
+
+  async addToCart(product = 'backpack') {
+    if (product === 'backpack') {
+      await this.addToCartButton.click();
+    } else if (product === 'bike light') {
+      await this.addToCartButton1.click();
+    }
+  }
+
+  async openCart() {
+    await this.cartButton.click();
+  }
+
+  async checkout() {
+    await this.checkoutButton.click();
+  }
+
+  async continueCheckout() {
+    await this.continueButton.click();
+  }
+
+  async finishCheckout() {
+    await this.finishButton.click();
+  }
+
+  async backHome() {
+    await this.backHomeButton.click();
   }
 
   async clickAllSocialButtons() {
@@ -91,7 +127,16 @@ class ProductsPage {
 
   async logout() {
     await this.burgerMenu.click();
+    await this.logoutButton.waitForDisplayed();
     await this.logoutButton.click();
+  }
+
+  async getCartItemsCount() {
+    return this.cartItems.length;
+  }
+
+  async isErrorVisible() {
+    return this.errorMessage.isDisplayed();
   }
 
   async getProductNames() {
