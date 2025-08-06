@@ -1,4 +1,6 @@
-class LoginPage {
+import Page from './page.js';
+
+class LoginPage extends Page {
   get usernameInput() {
     return $('[placeholder="Username"]');
   }
@@ -15,8 +17,8 @@ class LoginPage {
     return $('[data-test="error"]');
   }
 
-  async open() {
-    await browser.url('https://www.saucedemo.com/');
+  open() {
+    return super.open();
   }
 
   async login(username, password) {

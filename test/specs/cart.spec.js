@@ -17,7 +17,7 @@ describe('Cart Page', () => {
     expect(await productPage.getCartItemsCount()).toBe(1);
   });
 
-  it.only('should successfully complete the checkout process with valid product and user info', async () => {
+  it('should successfully complete the checkout process with valid product and user info', async () => {
     await productPage.addToCart('bike light');
     await productPage.openCart();
     await productPage.checkout();
