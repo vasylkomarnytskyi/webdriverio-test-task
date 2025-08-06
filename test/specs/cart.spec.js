@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import loginPage from '../pageobjects/login.page.js';
 import productPage from '../pageobjects/products.page.js';
+
 describe('Cart Page', () => {
   beforeEach(async () => {
     await loginPage.open();

@@ -6,29 +6,22 @@ describe('Login Page', () => {
     await loginPage.open();
   });
 
-  describe('Valid login', () => {
-    it('should login with standard user', async () => {
-      await loginPage.login('standard_user', 'secret_sauce');
-      await expect(productPage.title).toBeDisplayed();
-    });
+  it('should login with standard user', async () => {
+    await loginPage.login('standard_user', 'secret_sauce');
+    await expect(productPage.title).toBeDisplayed();
+  });
+  it('should not login with wrong password', async () => {
+    await loginPage.login('standard_user', 'random_value');
+    await expect(loginPage.errorMessage).toBeDisplayed();
+  });
+  it('should not login with invalid username', async () => {
+    await loginPage.login('standarD_user', 'secret_sauce');
+    await expect(loginPage.errorMessage).toBeDisplayed();
   });
 
-  describe('Invalid login', () => {
-    it('should not login with wrong password', async () => {
-      await loginPage.login('standard_user', 'random_value');
-      await expect(loginPage.errorMessage).toBeDisplayed();
-    });
-    it('should not login with invalid username', async () => {
-      await loginPage.login('standarD_user', 'secret_sauce');
-      await expect(loginPage.errorMessage).toBeDisplayed();
-    });
-  });
-
-  describe('Logout', () => {
-    it('should logout successfully', async () => {
-      await loginPage.login('standard_user', 'secret_sauce');
-      await productPage.logout();
-      await expect(loginPage.usernameInput).toBeDisplayed();
-    });
+  it('should logout successfully', async () => {
+    await loginPage.login('standard_user', 'secret_sauce');
+    await productPage.logout();
+    await expect(loginPage.usernameInput).toBeDisplayed();
   });
 });
