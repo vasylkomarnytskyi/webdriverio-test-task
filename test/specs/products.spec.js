@@ -8,37 +8,25 @@ describe.only('Product Sorting', () => {
   });
 
   it('should sort products correctly by all options', async () => {
-    const sortOptions = [
-      {
-        label: 'Price (low to high)',
-        getValues: () => productPage.getProductPrices(),
-        comparator: (a, b) => a - b,
-      },
-      {
-        label: 'Price (high to low)',
-        getValues: () => productPage.getProductPrices(),
-        comparator: (a, b) => b - a,
-      },
-      {
-        label: 'Name (A to Z)',
-        getValues: () => productPage.getProductNames(),
-        comparator: (a, b) => a.localeCompare(b),
-      },
-      {
-        label: 'Name (Z to A)',
-        getValues: () => productPage.getProductNames(),
-        comparator: (a, b) => b.localeCompare(a),
-      },
+    const rawSortOptions = [
+      ['Price (low to high)', 'getProductPrices', (a, b) => a - b],
+      ['Price (high to low)', 'getProductPrices', (a, b) => b - a],
+      ['Name (A to Z)', 'getProductNames', (a, b) => a.localeCompare(b)],
+      ['Name (Z to A)', 'getProductNames', (a, b) => b.localeCompare(a)],
     ];
 
-    sortOptions.forEach(({ label, getValues, comparator }) => {
+    const testSortOption = (label, getValues, comparator) => {
       it(`should sort products correctly by "${label}"`, async () => {
         await productPage.selectSortOption(label);
         const values = await getValues();
         const sorted = [...values].sort(comparator);
-
         expect(values).toEqual(sorted);
       });
+    };
+
+    rawSortOptions.forEach(([label, method, comparator]) => {
+      const getValues = () => productPage[method]();
+      testSortOption(label, getValues, comparator);
     });
   });
 
