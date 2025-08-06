@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import loginPage from '../pageobjects/login.page.js';
 import productPage from '../pageobjects/products.page.js';
 describe('Cart Page', () => {
@@ -16,11 +17,15 @@ describe('Cart Page', () => {
     expect(await productPage.getCartItemsCount()).toBe(1);
   });
 
-  it('should successfully complete the checkout process with valid product and user info', async () => {
+  it.only('should successfully complete the checkout process with valid product and user info', async () => {
     await productPage.addToCart('bike light');
     await productPage.openCart();
     await productPage.checkout();
-    await productPage.fillCheckoutForm('Ivan', 'Ivanenko', '12345');
+    await productPage.fillCheckoutForm(
+      faker.person.firstName(),
+      faker.person.lastName(),
+      faker.location.zipCode()
+    );
     await productPage.continueCheckout();
     await productPage.finishCheckout();
 
