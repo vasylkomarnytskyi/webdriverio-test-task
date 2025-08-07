@@ -10,10 +10,12 @@ describe('Login Page', () => {
     await loginPage.login('standard_user', 'secret_sauce');
     await expect(productPage.title).toBeDisplayed();
   });
+
   it('should not login with wrong password', async () => {
     await loginPage.login('standard_user', 'random_value');
     await expect(loginPage.errorMessage).toBeDisplayed();
   });
+
   it('should not login with invalid username', async () => {
     await loginPage.login('standarD_user', 'secret_sauce');
     await expect(loginPage.errorMessage).toBeDisplayed();

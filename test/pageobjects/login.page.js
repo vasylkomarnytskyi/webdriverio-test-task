@@ -4,22 +4,19 @@ class LoginPage extends Page {
   get usernameInput() {
     return $('[placeholder="Username"]');
   }
-
   get passwordInput() {
     return $('[placeholder="Password"]');
   }
-
   get loginButton() {
     return $('.submit-button');
   }
-
   get errorMessage() {
     return $('[data-test="error"]');
   }
 
-  open() {
-    return super.open();
-  }
+  // open() {
+  //   return super.open();
+  // }
 
   async login(username, password) {
     await this.usernameInput.setValue(username);

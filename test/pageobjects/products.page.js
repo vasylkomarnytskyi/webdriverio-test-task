@@ -8,75 +8,57 @@ class ProductsPage {
   get inputLastName() {
     return $('#last-name');
   }
-
   get inputZipCode() {
     return $('#postal-code');
   }
-
   get continueButton() {
     return $('#continue');
   }
-
   get finishButton() {
     return $('#finish');
   }
-
   get backHomeButton() {
     return $('#back-to-products');
   }
-
   get linkedinButton() {
     return $('.social_linkedin');
   }
-
   get twitterButton() {
     return $('.social_twitter');
   }
-
   get facebookButton() {
     return $('.social_facebook');
   }
-
   get burgerMenu() {
     return $('#react-burger-menu-btn');
   }
-
   get logoutButton() {
     return $('#logout_sidebar_link');
   }
-
   get addToCartButton() {
     return $('#add-to-cart-sauce-labs-backpack');
   }
-
   get addToCartButton1() {
     return $('#add-to-cart-sauce-labs-bike-light');
   }
-
   get cartButton() {
     return $('.shopping_cart_link');
   }
-
   get checkoutButton() {
     return $('.checkout_button');
   }
-
   get sortSelect() {
     return $('.product_sort_container');
   }
-
   get errorMessage() {
     return $('[data-test="error"]');
   }
-
   get cartItems() {
     return $$('.cart_item');
   }
-
   get productNames() {
     return $$('.inventory_item_name');
   }
-
   get productPrices() {
     return $$('.inventory_item_price');
   }
