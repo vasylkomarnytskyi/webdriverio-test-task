@@ -14,10 +14,6 @@ class LoginPage extends Page {
     return $('[data-test="error"]');
   }
 
-  // open() {
-  //   return super.open();
-  // }
-
   async login(username, password) {
     await this.usernameInput.setValue(username);
     await this.passwordInput.setValue(password);
